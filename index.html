@@ -188,41 +188,6 @@ body {
   letter-spacing: 0.05em;
 }
 
-/* Install Banner Card */
-.install-banner-card {
-  background: linear-gradient(135deg, rgba(20, 184, 166, 0.15) 0%, rgba(168, 85, 247, 0.15) 100%);
-  border: 1px solid var(--accent-teal);
-  border-radius: var(--radius-lg);
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 4px;
-}
-
-.install-banner-info {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.install-banner-info i {
-  font-size: 1.5rem;
-  color: var(--accent-teal);
-}
-
-.install-banner-info strong {
-  display: block;
-  font-size: 0.88rem;
-  color: var(--text-main);
-}
-
-.install-banner-info span {
-  font-size: 0.76rem;
-  color: var(--text-muted);
-}
-
 /* Main Content */
 .main-content {
   padding: 20px;
@@ -268,7 +233,7 @@ body {
   margin-bottom: 20px;
 }
 
-/* Hero Button - Cleaned redundancy, dynamic icon */
+/* Hero Button */
 .sos-giant-btn {
   display: inline-flex;
   align-items: center;
@@ -299,6 +264,37 @@ body {
   50% { transform: scale(1.03); box-shadow: 0 12px 35px rgba(236, 72, 153, 0.7); }
 }
 
+/* Link Button for Secondary View (Protocolo de Emergencia) */
+.btn-protocol-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 16px;
+  background: rgba(236, 72, 153, 0.12);
+  border: 1px solid var(--danger-sos);
+  border-radius: var(--radius-lg);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-protocol-link:active {
+  transform: scale(0.98);
+  background: rgba(236, 72, 153, 0.22);
+}
+
+.btn-protocol-link-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--danger-sos);
+}
+
 /* Section Card Container */
 .section-card {
   background: var(--bg-card);
@@ -321,6 +317,77 @@ body {
 
 .section-title-group h3 {
   font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* Protocolo de Emergencia Emocional UI (Secondary View / Modal) */
+.protocol-step-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.protocol-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 14px;
+}
+
+.protocol-num-icon {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 50%;
+  background: rgba(236, 72, 153, 0.18);
+  border: 1px solid var(--danger-sos);
+  color: var(--danger-sos);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.protocol-content strong {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  margin-bottom: 2px;
+}
+
+.protocol-content p {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.anchor-phrase-card {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.15) 0%, rgba(20, 184, 166, 0.15) 100%);
+  border: 1px dashed var(--accent-purple);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  margin-top: 14px;
+  text-align: center;
+}
+
+.anchor-phrase-card h4 {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-purple);
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.anchor-phrase-text {
+  font-family: var(--font-brand);
+  font-size: 0.92rem;
+  color: var(--text-main);
+  line-height: 1.4;
   font-weight: 700;
 }
 
@@ -583,7 +650,24 @@ a:focus-visible {
 .footer-brand-tagline {
   font-size: 0.82rem;
   color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.visit-counter-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
   margin-bottom: 18px;
+}
+
+.visit-counter-badge i {
+  color: var(--accent-teal);
 }
 
 .contact-links-grid {
@@ -629,20 +713,21 @@ a:focus-visible {
   margin-top: 18px;
 }
 
-/* Modal Instructions for Mobile App Installation */
+/* Modal / Secondary View Overlays */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(15, 23, 42, 0.92);
+  background: rgba(15, 23, 42, 0.95);
   backdrop-filter: blur(16px);
   z-index: 300;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 16px;
+  overflow-y: auto;
   animation: fadeIn 0.3s ease-out;
 }
 
@@ -654,6 +739,8 @@ a:focus-visible {
   width: 100%;
   max-width: 440px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .modal-header {
@@ -751,21 +838,6 @@ a:focus-visible {
     <!-- Main Content -->
     <main class="main-content">
       
-      <!-- Banner de Instalación Rápida PWA -->
-      <div id="pwa-install-banner" class="install-banner-card">
-        <div class="install-banner-info">
-          <i data-lucide="smartphone"></i>
-          <div>
-            <strong>Instala la App en tu Celular</strong>
-            <span>Úsala directo en tu pantalla de inicio</span>
-          </div>
-        </div>
-        <button id="pwa-install-btn" class="btn btn-primary">
-          <i data-lucide="download"></i>
-          <span>Instalar</span>
-        </button>
-      </div>
-
       <!-- HERO: Botón de Calma Inmediata -->
       <section class="calm-hero-card">
         <div class="calm-hero-glow"></div>
@@ -777,6 +849,15 @@ a:focus-visible {
           <span>BOTÓN DE CALMA</span>
         </button>
       </section>
+
+      <!-- BOTÓN ACCESO A PÁGINA SECUNDARIA: Protocolo de Emergencia -->
+      <button id="open-protocol-btn" class="btn-protocol-link">
+        <div class="btn-protocol-link-left">
+          <i data-lucide="shield-alert"></i>
+          <span>Protocolo de Emergencia Emocional</span>
+        </div>
+        <i data-lucide="chevron-right"></i>
+      </button>
 
       <!-- SECCIÓN 1: Respiración Guiada -->
       <section class="section-card">
@@ -904,7 +985,7 @@ a:focus-visible {
         </button>
       </section>
 
-      <!-- FOOTER: Apartado de Contacto WhatsApp e Instagram -->
+      <!-- FOOTER: Apartado de Contacto WhatsApp e Instagram + Contador de Visitas -->
       <footer class="footer-contact-card">
         <div class="footer-brand-logo">
           <svg viewBox="0 0 100 100" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -918,6 +999,12 @@ a:focus-visible {
         
         <h4 class="footer-brand-title">sin miedo artlab</h4>
         <p class="footer-brand-tagline">Laboratorio de Arte, Calma & Bienestar Emocional</p>
+
+        <!-- Contador de Visitas -->
+        <div class="visit-counter-badge">
+          <i data-lucide="eye"></i>
+          <span id="visit-counter-text">Cargando visitas...</span>
+        </div>
 
         <div class="contact-links-grid">
           <a href="https://wa.me/573117185391?text=Hola%20sin%20miedo%20artlab,%20me%20gustar%C3%ADa%20m%C3%A1s%20informaci%C3%B3n" target="_blank" rel="noopener" class="contact-btn btn-whatsapp">
@@ -935,6 +1022,60 @@ a:focus-visible {
       </footer>
 
     </main>
+
+    <!-- PÁGINA SECUNDARIA / MODAL: Protocolo de Emergencia Emocional -->
+    <div id="protocol-modal" class="modal-overlay" style="display:none;">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>
+            <i data-lucide="shield-alert" style="color: var(--danger-sos);"></i>
+            <span>Protocolo de Emergencia</span>
+          </h3>
+          <button id="close-protocol-modal-btn" class="btn-close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">
+            Pasos inmediatos para actuar durante un ataque de pánico o sobrecarga sensorial:
+          </p>
+
+          <div class="protocol-step-list">
+            <div class="protocol-item">
+              <div class="protocol-num-icon">1</div>
+              <div class="protocol-content">
+                <strong>Pausa & Busca Apoyo Físico</strong>
+                <p>Siéntate y apoya firmemente tu espalda contra una pared o silla. Siente la solidez de la superficie.</p>
+              </div>
+            </div>
+
+            <div class="protocol-item">
+              <div class="protocol-num-icon">2</div>
+              <div class="protocol-content">
+                <strong>Estímulo Frío (Reset del Vago)</strong>
+                <p>Moja tu cara con agua fría o sostén un cubo de hielo en tu mano durante 30 segundos para bajar tu ritmo cardíaco.</p>
+              </div>
+            </div>
+
+            <div class="protocol-item">
+              <div class="protocol-num-icon">3</div>
+              <div class="protocol-content">
+                <strong>Exhalación Larga Prolongada</strong>
+                <p>Inhala brevemente en 3 segundos y exhala suavemente por la boca durante 6 segundos. La exhalación larga activa la calma.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="anchor-phrase-card">
+            <h4>Frase de Anclaje</h4>
+            <p class="anchor-phrase-text">"Esto es solo una ola de adrenalina. Mi cuerpo se está protegiendo, pero no estoy en peligro real. Esto pasará."</p>
+          </div>
+
+          <button id="close-protocol-modal-bottom-btn" class="btn btn-primary w-full mt-2">
+            <i data-lucide="check"></i>
+            <span>Entendido / Volver a la Calma</span>
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- Modal Guía de Instalación Móvil -->
     <div id="install-modal" class="modal-overlay" style="display:none;">
@@ -1046,6 +1187,20 @@ function setupDynamicPngIcons() {
   }
 }
 setupDynamicPngIcons();
+
+/**
+ * Visit Counter Logic (Local Persistent Storage)
+ */
+function initVisitCounter() {
+  let count = localStorage.getItem('focuscalm_visit_count');
+  count = count ? parseInt(count, 10) + 1 : 1;
+  localStorage.setItem('focuscalm_visit_count', count.toString());
+
+  const counterEl = document.getElementById('visit-counter-text');
+  if (counterEl) {
+    counterEl.textContent = `${count} ${count === 1 ? 'visita' : 'visitas'} a tu espacio de calma`;
+  }
+}
 
 /**
  * Inline Service Worker Registration for PWA Offline & Install Prompt
@@ -1330,18 +1485,12 @@ let deferredPrompt = null;
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  const pwaBanner = document.getElementById('pwa-install-banner');
-  if (pwaBanner) pwaBanner.style.display = 'flex';
 });
 
 function handleAppInstall() {
   if (deferredPrompt) {
     deferredPrompt.prompt();
     deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === 'accepted') {
-        const pwaBanner = document.getElementById('pwa-install-banner');
-        if (pwaBanner) pwaBanner.style.display = 'none';
-      }
       deferredPrompt = null;
     });
   } else {
@@ -1352,23 +1501,44 @@ function handleAppInstall() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  initVisitCounter();
   if (window.lucide) lucide.createIcons();
 
   // Install Buttons
   const headerInstallBtn = document.getElementById('header-install-btn');
-  const pwaInstallBtn = document.getElementById('pwa-install-btn');
   const closeInstallModalBtn = document.getElementById('close-install-modal-btn');
   const installModal = document.getElementById('install-modal');
 
   if (headerInstallBtn) headerInstallBtn.addEventListener('click', handleAppInstall);
-  if (pwaInstallBtn) pwaInstallBtn.addEventListener('click', handleAppInstall);
   if (closeInstallModalBtn && installModal) {
     closeInstallModalBtn.addEventListener('click', () => {
       installModal.style.display = 'none';
     });
   }
 
-  // Hero Giant SOS Button - Cleaned text & dynamic Lucide icon
+  // Protocol Secondary View Controller
+  const openProtocolBtn = document.getElementById('open-protocol-btn');
+  const closeProtocolModalBtn = document.getElementById('close-protocol-modal-btn');
+  const closeProtocolModalBottomBtn = document.getElementById('close-protocol-modal-bottom-btn');
+  const protocolModal = document.getElementById('protocol-modal');
+
+  if (openProtocolBtn && protocolModal) {
+    openProtocolBtn.addEventListener('click', () => {
+      protocolModal.style.display = 'flex';
+    });
+  }
+  if (closeProtocolModalBtn && protocolModal) {
+    closeProtocolModalBtn.addEventListener('click', () => {
+      protocolModal.style.display = 'none';
+    });
+  }
+  if (closeProtocolModalBottomBtn && protocolModal) {
+    closeProtocolModalBottomBtn.addEventListener('click', () => {
+      protocolModal.style.display = 'none';
+    });
+  }
+
+  // Hero Giant SOS Button
   const heroCalmBtn = document.getElementById('hero-calm-btn');
   if (heroCalmBtn) {
     heroCalmBtn.addEventListener('click', () => {
