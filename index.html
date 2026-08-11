@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>focus/calm sin miedo · Lite</title>
+  
+  <!-- Mobile Web App & PWA Capabilities for Home Screen App Icon -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="focus/calm">
+  <meta name="theme-color" content="#0f172a">
+
+  <!-- Manifest Data URI -->
+  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22focus%2Fcalm%20sin%20miedo%20Lite%22%2C%22short_name%22%3A%22focus%2Fcalm%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230f172a%22%2C%22theme_color%22%3A%22%230f172a%22%7D">
+
+  <!-- SVG App Icon for Mobile Launcher -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%2314b8a6'><path d='M42 32 C 40 18, 48 10, 56 10 C 64 10, 68 18, 68 30 L 68 36' stroke='%2314b8a6' stroke-width='4' stroke-linecap='round' fill='none'/><path d='M 36 40 C 24 48, 22 62, 30 78 C 38 94, 52 102, 55 102 C 58 102, 72 86, 78 70 C 83 56, 77 44, 66 43 C 57 42, 50 46, 46 40 C 43 36, 39 36, 36 40 Z' fill='%2314b8a6' fill-opacity='0.2' stroke='%2314b8a6' stroke-width='4'/></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%2314b8a6'><path d='M42 32 C 40 18, 48 10, 56 10 C 64 10, 68 18, 68 30 L 68 36' stroke='%2314b8a6' stroke-width='4' stroke-linecap='round' fill='none'/><path d='M 36 40 C 24 48, 22 62, 30 78 C 38 94, 52 102, 55 102 C 58 102, 72 86, 78 70 C 83 56, 77 44, 66 43 C 57 42, 50 46, 46 40 C 43 36, 39 36, 36 40 Z' fill='%2314b8a6' fill-opacity='0.2' stroke='%2314b8a6' stroke-width='4'/></svg>">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Lexend:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Embedded Styles -->
+  <style>
+/* ==========================================================================
+   focus/calm sin miedo · Lite Design System
+   ========================================================================== */
+
+:root {
+  --font-main: 'Lexend', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Outfit', var(--font-main);
+  --font-brand: 'Courier Prime', 'Courier New', monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  --bg-app: #0f172a;
+  --bg-card: rgba(30, 41, 59, 0.75);
+  --bg-input: #1e293b;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-focus: #14b8a6;
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+
+  --accent-teal: #14b8a6;
+  --accent-teal-gradient: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+  --accent-purple: #a855f7;
+  --accent-purple-gradient: linear-gradient(135deg, #a855f7 0%, #8b5cf6 100%);
+  --danger-sos: #ec4899;
+  --danger-sos-gradient: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+.mobile-container {
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;
+  background-color: var(--bg-app);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.6);
+  padding-bottom: 40px;
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--bg-input);
+  border: 1.5px solid var(--accent-teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-teal);
+  box-shadow: 0 2px 12px rgba(20, 184, 166, 0.25);
+  padding: 4px;
+}
+
+.brand-text h1 {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.brand-subtitle {
+  font-family: var(--font-brand);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.header-right-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.install-header-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  background: var(--accent-teal-gradient);
+  color: #fff;
+  border: none;
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(20, 184, 166, 0.35);
+  transition: transform var(--transition-bounce);
+}
+
+.install-header-btn:active {
+  transform: scale(0.94);
+}
+
+.lite-pill-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: rgba(20, 184, 166, 0.15);
+  color: var(--accent-teal);
+  border: 1px solid var(--accent-teal);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.05em;
+}
+
+/* Install Banner Card */
+.install-banner-card {
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.15) 0%, rgba(168, 85, 247, 0.15) 100%);
+  border: 1px solid var(--accent-teal);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.install-banner-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.install-banner-info i {
+  font-size: 1.5rem;
+  color: var(--accent-teal);
+}
+
+.install-banner-info strong {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--text-main);
+}
+
+.install-banner-info span {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+/* Main Content */
+.main-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Hero Panic / Calma Central Card */
+.calm-hero-card {
+  background: var(--bg-card);
+  border: 2px solid var(--danger-sos);
+  border-radius: var(--radius-xl);
+  padding: 24px 20px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(236, 72, 153, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.calm-hero-glow {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.3) 0%, rgba(15, 23, 42, 0) 70%);
+  filter: blur(25px);
+  pointer-events: none;
+}
+
+.calm-hero-title {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.calm-hero-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.sos-giant-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 18px 24px;
+  border-radius: var(--radius-full);
+  background: var(--danger-sos-gradient);
+  color: #fff;
+  border: none;
+  font-family: var(--font-main);
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(236, 72, 153, 0.5);
+  transition: transform var(--transition-bounce);
+  animation: pulse-giant 3s infinite ease-in-out;
+}
+
+.sos-giant-btn:active {
+  transform: scale(0.95);
+}
+
+@keyframes pulse-giant {
+  0%, 100% { transform: scale(1); box-shadow: 0 8px 25px rgba(236, 72, 153, 0.4); }
+  50% { transform: scale(1.03); box-shadow: 0 12px 35px rgba(236, 72, 153, 0.7); }
+}
+
+/* Section Card Container */
+.section-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+}
+
+.section-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.section-title-group i {
+  color: var(--accent-teal);
+  font-size: 1.3rem;
+}
+
+.section-title-group h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* Breathing Visualizer (Interactive) */
+.breathing-technique-selector {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.b-tech-chip {
+  flex: 1;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 8px 4px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 600;
+}
+
+.b-tech-chip.active {
+  background: rgba(168, 85, 247, 0.25);
+  border-color: var(--accent-purple);
+  color: var(--accent-purple);
+}
+
+.breathing-visualizer-container {
+  position: relative;
+  height: 190px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.breathing-ring-outer {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 2px dashed rgba(168, 85, 247, 0.35);
+  animation: rotateSlow 25s linear infinite;
+}
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.breathing-sphere {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #a855f7 0%, #6366f1 100%);
+  box-shadow: 0 0 35px rgba(168, 85, 247, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 3.5s ease-in-out;
+}
+
+.breathing-sphere.expand { transform: scale(1.55); }
+.breathing-sphere.contract { transform: scale(0.85); }
+
+#breathing-text-instruction {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* Grounding 5-4-3-2-1 Card */
+.grounding-box {
+  text-align: center;
+}
+
+.grounding-badge {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--accent-teal);
+  background: rgba(20, 184, 166, 0.2);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 8px;
+}
+
+.grounding-step-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.grounding-step-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.grounding-interactive-checks {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.ground-check-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-bounce);
+}
+
+.ground-check-btn.checked {
+  background: var(--accent-teal-gradient);
+  color: #fff;
+  border-color: transparent;
+  transform: scale(1.1);
+}
+
+/* Sound Library Section (Expanded 7 Sounds) */
+.sound-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.sound-card-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  color: var(--text-main);
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.sound-card-btn i {
+  font-size: 1.3rem;
+  color: var(--accent-teal);
+}
+
+.sound-card-btn.active {
+  border-color: var(--accent-teal);
+  background: rgba(20, 184, 166, 0.15);
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.2);
+}
+
+.sound-card-btn.active i {
+  color: var(--accent-teal);
+}
+
+.sound-card-info strong {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.sound-card-info span {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.volume-slider-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+
+.volume-slider-group input[type="range"] {
+  flex: 1;
+  accent-color: var(--accent-teal);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-main);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-primary {
+  background: var(--accent-teal-gradient);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(20, 184, 166, 0.35);
+}
+
+.btn-accent {
+  background: var(--accent-purple-gradient);
+  color: #fff;
+}
+
+.w-full { width: 100%; }
+.mt-2 { margin-top: 8px; }
+
+/* Contact & Footer Section */
+.footer-contact-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 24px 20px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.footer-brand-logo {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 10px auto;
+  color: var(--accent-teal);
+}
+
+.footer-brand-title {
+  font-family: var(--font-brand);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 2px;
+}
+
+.footer-brand-tagline {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+.contact-links-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: var(--radius-lg);
+  font-family: var(--font-main);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.btn-whatsapp {
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+.btn-instagram {
+  background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(253, 29, 29, 0.3);
+}
+
+.contact-btn:active {
+  transform: scale(0.96);
+}
+
+.footer-copyright {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-top: 18px;
+}
+
+/* Modal Instructions for Mobile App Installation */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.92);
+  backdrop-filter: blur(16px);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--accent-teal);
+  border-radius: var(--radius-xl);
+  padding: 22px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.modal-header h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-close-modal {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.instruction-block {
+  background: var(--bg-input);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.instruction-block h4 {
+  font-size: 0.95rem;
+  color: var(--accent-teal);
+  margin-bottom: 8px;
+}
+
+.instruction-block ol {
+  padding-left: 20px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+  </style>
+</head>
+<body class="theme-dark">
+
+  <div id="app" class="mobile-container">
+    
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon" title="focus/calm sin miedo">
+          <svg viewBox="0 0 100 100" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M42 32 C 40 18, 48 10, 56 10 C 64 10, 68 18, 68 30 L 68 36" stroke-width="2.5"/>
+            <path d="M48 30 V 16 M54 30 V 13 M60 30 V 17" stroke-width="2"/>
+            <path d="M34 35 C 34 22, 38 18, 42 18" stroke-width="2.5"/>
+            <path d="M72 32 C 77 28, 83 32, 83 38 C 83 43, 76 45, 68 45" stroke-width="2.5"/>
+            <path d="M 36 40 C 24 48, 22 62, 30 78 C 38 94, 52 102, 55 102 C 58 102, 72 86, 78 70 C 83 56, 77 44, 66 43 C 57 42, 50 46, 46 40 C 43 36, 39 36, 36 40 Z" fill="currentColor" fill-opacity="0.18" stroke-width="3"/>
+            <path d="M 46 46 C 50 58, 52 72, 48 94" stroke-width="2"/>
+            <path d="M 48 62 L 55 68 M 47 72 L 53 78 M 49 82 L 55 87" stroke-width="1.8"/>
+            <path d="M 32 58 C 37 60, 42 58, 45 53" stroke-width="1.5"/>
+            <path d="M 64 53 C 70 60, 74 66, 72 74" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>focus/calm</h1>
+          <span class="brand-subtitle">sin miedo</span>
+        </div>
+      </div>
+
+      <div class="header-right-group">
+        <button id="header-install-btn" class="install-header-btn">
+          <i data-lucide="download"></i>
+          <span>Instalar App</span>
+        </button>
+        <span class="lite-pill-badge">LITE</span>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      
+      <!-- Banner de Instalación Rápida PWA -->
+      <div id="pwa-install-banner" class="install-banner-card">
+        <div class="install-banner-info">
+          <i data-lucide="smartphone"></i>
+          <div>
+            <strong>Instala la App en tu Celular</strong>
+            <span>Úsala directo en tu pantalla de inicio</span>
+          </div>
+        </div>
+        <button id="pwa-install-btn" class="btn btn-primary">
+          <i data-lucide="download"></i>
+          <span>Instalar</span>
+        </button>
+      </div>
+
+      <!-- HERO: Botón de Calma Inmediata -->
+      <section class="calm-hero-card">
+        <div class="calm-hero-glow"></div>
+        <h2 class="calm-hero-title">Regulación Emocional</h2>
+        <p class="calm-hero-desc">Estás a salvo. Presiona el botón para pausar y conectar con tu calma.</p>
+
+        <button id="hero-calm-btn" class="sos-giant-btn">
+          <i data-lucide="heart-pulse"></i>
+          <span>⚡ BOTÓN DE CALMA</span>
+        </button>
+      </section>
+
+      <!-- SECCIÓN 1: Respiración Guiada -->
+      <section class="section-card">
+        <div class="section-title-group">
+          <i data-lucide="wind"></i>
+          <h3>Respiración Guiada</h3>
+        </div>
+
+        <div class="breathing-technique-selector">
+          <button class="b-tech-chip active" data-tech="box">Caja (4-4-4-4)</button>
+          <button class="b-tech-chip" data-tech="478">4-7-8 Relajación</button>
+          <button class="b-tech-chip" data-tech="coherence">Coherencia (5-5)</button>
+        </div>
+
+        <div class="breathing-visualizer-container">
+          <div class="breathing-ring-outer"></div>
+          <div class="breathing-sphere" id="breathing-sphere">
+            <span id="breathing-text-instruction">En reposo</span>
+          </div>
+        </div>
+
+        <button id="toggle-breathing-btn" class="btn btn-accent w-full mt-2">
+          <i data-lucide="play"></i>
+          <span id="breathing-btn-text">Comenzar Respiración</span>
+        </button>
+      </section>
+
+      <!-- SECCIÓN 2: Reconexión 5-4-3-2-1 -->
+      <section class="section-card">
+        <div class="section-title-group">
+          <i data-lucide="eye"></i>
+          <h3>Reconexión 5-4-3-2-1</h3>
+        </div>
+
+        <div class="grounding-box">
+          <span id="grounding-step-badge" class="grounding-badge">Paso 1 de 5</span>
+          <h4 id="grounding-step-title" class="grounding-step-title">5 Cosas que puedes VER</h4>
+          <p id="grounding-step-desc" class="grounding-step-desc">Identifica 5 objetos físicos a tu alrededor.</p>
+
+          <div id="grounding-checks-grid" class="grounding-interactive-checks">
+            <!-- Dynamic checks -->
+          </div>
+
+          <button id="next-grounding-btn" class="btn btn-primary w-full">
+            <span>Siguiente Sentido ✨</span>
+            <i data-lucide="arrow-right"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- SECCIÓN 3: Variedad Ampliada de 7 Sonidos Calmantes -->
+      <section class="section-card">
+        <div class="section-title-group">
+          <i data-lucide="headphones"></i>
+          <h3>Ambientes Sonoros Calmantes</h3>
+        </div>
+
+        <div class="sound-grid">
+          <button class="sound-card-btn active" data-sound="pink">
+            <i data-lucide="cloud-rain"></i>
+            <div class="sound-card-info">
+              <strong>Ruido Rosa Calibrado</strong>
+              <span>Suave, reduce sobrepensamiento</span>
+            </div>
+          </button>
+
+          <button class="sound-card-btn" data-sound="waves">
+            <i data-lucide="waves"></i>
+            <div class="sound-card-info">
+              <strong>Olas de Mar Sintéticas</strong>
+              <span>Ritmo natural de resaca marina</span>
+            </div>
+          </button>
+
+          <button class="sound-card-btn" data-sound="binaural">
+            <i data-lucide="radio"></i>
+            <div class="sound-card-info">
+              <strong>Tono Binaural 432Hz</strong>
+              <span>Onda Theta para bajar pulso</span>
+            </div>
+          </button>
+
+          <button class="sound-card-btn" data-sound="brown">
+            <i data-lucide="disc"></i>
+            <div class="sound-card-info">
+              <strong>Ruido Marrón Profundo</strong>
+              <span>Graves envolventes anti-ansiedad</span>
+            </div>
+          </button>
+
+          <button class="sound-card-btn" data-sound="rain">
+            <i data-lucide="cloud-drizzle"></i>
+            <div class="sound-card-info">
+              <strong>Lluvia Suave en Ventana</strong>
+              <span>Gotas constantes relajantes</span>
+            </div>
+          </button>
+
+          <button class="sound-card-btn" data-sound="singing_bowl">
+            <i data-lucide="bell"></i>
+            <div class="sound-card-info">
+              <strong>Cuenco Tibetano Armónico</strong>
+              <span>Resonancia meditativa 216Hz/432Hz</span>
+            </div>
+          </button>
+
+          <button class="sound-card-btn" data-sound="wind">
+            <i data-lucide="wind"></i>
+            <div class="sound-card-info">
+              <strong>Brisa de Bosque Suave</strong>
+              <span>Murmullo ambiental de viento</span>
+            </div>
+          </button>
+        </div>
+
+        <div class="volume-slider-group">
+          <i data-lucide="volume-1"></i>
+          <input type="range" id="sound-volume-slider" min="0" max="1" step="0.05" value="0.5">
+          <i data-lucide="volume-2"></i>
+        </div>
+
+        <button id="toggle-sound-btn" class="btn btn-primary w-full mt-2">
+          <i data-lucide="play"></i>
+          <span id="sound-btn-text">Reproducir Sonido Calmante</span>
+        </button>
+      </section>
+
+      <!-- FOOTER: Apartado de Contacto WhatsApp e Instagram -->
+      <footer class="footer-contact-card">
+        <div class="footer-brand-logo">
+          <svg viewBox="0 0 100 100" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M42 32 C 40 18, 48 10, 56 10 C 64 10, 68 18, 68 30 L 68 36" stroke-width="2.5"/>
+            <path d="M48 30 V 16 M54 30 V 13 M60 30 V 17" stroke-width="2"/>
+            <path d="M34 35 C 34 22, 38 18, 42 18" stroke-width="2.5"/>
+            <path d="M72 32 C 77 28, 83 32, 83 38 C 83 43, 76 45, 68 45" stroke-width="2.5"/>
+            <path d="M 36 40 C 24 48, 22 62, 30 78 C 38 94, 52 102, 55 102 C 58 102, 72 86, 78 70 C 83 56, 77 44, 66 43 C 57 42, 50 46, 46 40 C 43 36, 39 36, 36 40 Z" fill="currentColor" fill-opacity="0.18" stroke-width="3"/>
+          </svg>
+        </div>
+        
+        <h4 class="footer-brand-title">sin miedo artlab</h4>
+        <p class="footer-brand-tagline">Laboratorio de Arte, Calma & Bienestar Emocional</p>
+
+        <div class="contact-links-grid">
+          <a href="https://wa.me/573117185391?text=Hola%20sin%20miedo%20artlab,%20me%20gustar%C3%ADa%20m%C3%A1s%20informaci%C3%B3n" target="_blank" rel="noopener" class="contact-btn btn-whatsapp">
+            <i data-lucide="message-circle"></i>
+            <span>WhatsApp +57 311 718 5391</span>
+          </a>
+
+          <a href="https://instagram.com/sin.miedo.artlab" target="_blank" rel="noopener" class="contact-btn btn-instagram">
+            <i data-lucide="instagram"></i>
+            <span>@sin.miedo.artlab</span>
+          </a>
+        </div>
+
+        <p class="footer-copyright">© focus/calm sin miedo artlab · Versión Lite</p>
+      </footer>
+
+    </main>
+
+    <!-- Modal Guía de Instalación Móvil -->
+    <div id="install-modal" class="modal-overlay" style="display:none;">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3><i data-lucide="smartphone"></i> Instalación en Tu Celular</h3>
+          <button id="close-install-modal-btn" class="btn-close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="instruction-block">
+            <h4>🍎 En iPhone (Safari):</h4>
+            <ol>
+              <li>Toca el botón <strong>Compartir</strong> <i data-lucide="share" style="width:16px;height:16px;"></i> abajo en Safari.</li>
+              <li>Desplázate y selecciona <strong>"Agregar a inicio"</strong> 📲.</li>
+              <li>¡Listo! Tendrás la App con su ícono en tu pantalla de inicio.</li>
+            </ol>
+          </div>
+          <div class="instruction-block">
+            <h4>🤖 En Android (Chrome):</h4>
+            <ol>
+              <li>Toca el menú de tres puntos <strong>⋮</strong> arriba a la derecha.</li>
+              <li>Selecciona <strong>"Instalar aplicación"</strong> o <strong>"Agregar a la pantalla principal"</strong> 📲.</li>
+              <li>El ícono se instalará como app nativa.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Web Audio Synthesizer & App Controller Bundle -->
+  <script>
+/**
+ * Inline Service Worker Registration for PWA Offline & Install Prompt
+ */
+if ('serviceWorker' in navigator) {
+  const swCode = `
+    self.addEventListener('install', e => self.skipWaiting());
+    self.addEventListener('activate', e => self.clients.claim());
+    self.addEventListener('fetch', e => e.respondWith(fetch(e.request).catch(() => new Response('Offline'))));
+  `;
+  const blob = new Blob([swCode], { type: 'application/javascript' });
+  const swUrl = URL.createObjectURL(blob);
+  navigator.serviceWorker.register(swUrl).catch(err => console.log('SW reg info:', err));
+}
+
+/**
+ * focus/calm sin miedo Lite - Web Audio API Synthesizer (7 Relaxing Sounds)
+ */
+class LiteAudioSynthesizer {
+  constructor() {
+    this.ctx = null;
+    this.activeSource = null;
+    this.gainNode = null;
+    this.isPlaying = false;
+    this.currentSound = 'pink';
+    this.volume = 0.5;
+  }
+
+  initContext() {
+    if (!this.ctx) {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      this.ctx = new AudioCtx();
+    }
+    if (this.ctx.state === 'suspended') {
+      this.ctx.resume();
+    }
+  }
+
+  setVolume(val) {
+    this.volume = Math.max(0, Math.min(1, val));
+    if (this.gainNode) {
+      this.gainNode.gain.setValueAtTime(this.volume, this.ctx.currentTime);
+    }
+  }
+
+  play(soundType = 'pink') {
+    this.initContext();
+    this.stop();
+
+    this.currentSound = soundType;
+    this.isPlaying = true;
+
+    this.gainNode = this.ctx.createGain();
+    this.gainNode.gain.setValueAtTime(this.volume, this.ctx.currentTime);
+    this.gainNode.connect(this.ctx.destination);
+
+    switch (soundType) {
+      case 'pink': this.createPinkNoise(); break;
+      case 'waves': this.createOceanWaves(); break;
+      case 'binaural': this.createBinaural432Hz(); break;
+      case 'brown': this.createBrownNoise(); break;
+      case 'rain': this.createSoftRain(); break;
+      case 'singing_bowl': this.createSingingBowl(); break;
+      case 'wind': this.createGentleWind(); break;
+      default: this.createPinkNoise();
+    }
+  }
+
+  stop() {
+    if (this.activeSource) {
+      try {
+        if (Array.isArray(this.activeSource)) {
+          this.activeSource.forEach(s => { if (s.stop) s.stop(); });
+        } else if (this.activeSource.stop) {
+          this.activeSource.stop();
+        }
+      } catch (e) {}
+      this.activeSource = null;
+    }
+    this.isPlaying = false;
+  }
+
+  createPinkNoise() {
+    const bufferSize = 2 * this.ctx.sampleRate;
+    const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+    const output = noiseBuffer.getChannelData(0);
+    let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+
+    for (let i = 0; i < bufferSize; i++) {
+      const white = Math.random() * 2 - 1;
+      b0 = 0.99886 * b0 + white * 0.0555179;
+      b1 = 0.99332 * b1 + white * 0.0750759;
+      b2 = 0.96900 * b2 + white * 0.1538520;
+      b3 = 0.86650 * b3 + white * 0.3104856;
+      b4 = 0.55000 * b4 + white * 0.5329522;
+      b5 = -0.7616 * b5 - white * 0.0168980;
+      output[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.04;
+      b6 = white * 0.115926;
+    }
+
+    const src = this.ctx.createBufferSource();
+    src.buffer = noiseBuffer;
+    src.loop = true;
+
+    const filter = this.ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(800, this.ctx.currentTime);
+
+    src.connect(filter);
+    filter.connect(this.gainNode);
+    src.start();
+    this.activeSource = src;
+  }
+
+  createOceanWaves() {
+    const bufferSize = 4 * this.ctx.sampleRate;
+    const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+    const output = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) output[i] = (Math.random() * 2 - 1) * 0.2;
+
+    const noise = this.ctx.createBufferSource();
+    noise.buffer = noiseBuffer;
+    noise.loop = true;
+
+    const filter = this.ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(300, this.ctx.currentTime);
+
+    const lfo = this.ctx.createOscillator();
+    lfo.frequency.setValueAtTime(0.12, this.ctx.currentTime);
+
+    const lfoGain = this.ctx.createGain();
+    lfoGain.gain.setValueAtTime(400, this.ctx.currentTime);
+
+    lfo.connect(lfoGain);
+    lfoGain.connect(filter.frequency);
+
+    noise.connect(filter);
+    filter.connect(this.gainNode);
+
+    lfo.start();
+    noise.start();
+    this.activeSource = [noise, lfo];
+  }
+
+  createBinaural432Hz() {
+    const merger = this.ctx.createChannelMerger(2);
+    const oscLeft = this.ctx.createOscillator();
+    oscLeft.type = 'sine';
+    oscLeft.frequency.setValueAtTime(432, this.ctx.currentTime);
+
+    const oscRight = this.ctx.createOscillator();
+    oscRight.type = 'sine';
+    oscRight.frequency.setValueAtTime(436, this.ctx.currentTime);
+
+    oscLeft.connect(merger, 0, 0);
+    oscRight.connect(merger, 0, 1);
+    merger.connect(this.gainNode);
+
+    oscLeft.start();
+    oscRight.start();
+    this.activeSource = [oscLeft, oscRight];
+  }
+
+  createBrownNoise() {
+    const bufferSize = 2 * this.ctx.sampleRate;
+    const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+    const output = noiseBuffer.getChannelData(0);
+    let lastOutput = 0.0;
+
+    for (let i = 0; i < bufferSize; i++) {
+      const white = Math.random() * 2 - 1;
+      output[i] = (lastOutput + (0.02 * white)) / 1.02;
+      lastOutput = output[i];
+      output[i] *= 3.5;
+    }
+
+    const src = this.ctx.createBufferSource();
+    src.buffer = noiseBuffer;
+    src.loop = true;
+
+    const filter = this.ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(350, this.ctx.currentTime);
+
+    src.connect(filter);
+    filter.connect(this.gainNode);
+    src.start();
+    this.activeSource = src;
+  }
+
+  createSoftRain() {
+    const bufferSize = 2 * this.ctx.sampleRate;
+    const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+    const output = noiseBuffer.getChannelData(0);
+
+    for (let i = 0; i < bufferSize; i++) {
+      output[i] = (Math.random() * 2 - 1) * 0.15;
+    }
+
+    const src = this.ctx.createBufferSource();
+    src.buffer = noiseBuffer;
+    src.loop = true;
+
+    const filter = this.ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(1200, this.ctx.currentTime);
+    filter.Q.setValueAtTime(0.8, this.ctx.currentTime);
+
+    src.connect(filter);
+    filter.connect(this.gainNode);
+    src.start();
+    this.activeSource = src;
+  }
+
+  createSingingBowl() {
+    const osc1 = this.ctx.createOscillator();
+    const osc2 = this.ctx.createOscillator();
+    osc1.type = 'sine';
+    osc1.frequency.setValueAtTime(216, this.ctx.currentTime);
+    osc2.type = 'sine';
+    osc2.frequency.setValueAtTime(432, this.ctx.currentTime);
+
+    const lfo = this.ctx.createOscillator();
+    lfo.frequency.setValueAtTime(0.2, this.ctx.currentTime);
+    const lfoGain = this.ctx.createGain();
+    lfoGain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+
+    lfo.connect(lfoGain);
+    lfoGain.connect(this.gainNode.gain);
+
+    osc1.connect(this.gainNode);
+    osc2.connect(this.gainNode);
+
+    osc1.start();
+    osc2.start();
+    lfo.start();
+
+    this.activeSource = [osc1, osc2, lfo];
+  }
+
+  createGentleWind() {
+    const bufferSize = 4 * this.ctx.sampleRate;
+    const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+    const output = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) output[i] = (Math.random() * 2 - 1) * 0.15;
+
+    const noise = this.ctx.createBufferSource();
+    noise.buffer = noiseBuffer;
+    noise.loop = true;
+
+    const filter = this.ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.Q.setValueAtTime(1.5, this.ctx.currentTime);
+
+    const lfo = this.ctx.createOscillator();
+    lfo.frequency.setValueAtTime(0.08, this.ctx.currentTime);
+
+    const lfoGain = this.ctx.createGain();
+    lfoGain.gain.setValueAtTime(250, this.ctx.currentTime);
+
+    filter.frequency.setValueAtTime(350, this.ctx.currentTime);
+    lfo.connect(lfoGain);
+    lfoGain.connect(filter.frequency);
+
+    noise.connect(filter);
+    filter.connect(this.gainNode);
+
+    lfo.start();
+    noise.start();
+    this.activeSource = [noise, lfo];
+  }
+}
+
+window.liteAudio = new LiteAudioSynthesizer();
+
+/**
+ * PWA Install Manager Logic
+ */
+let deferredPrompt = null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const pwaBanner = document.getElementById('pwa-install-banner');
+  if (pwaBanner) pwaBanner.style.display = 'flex';
+});
+
+function handleAppInstall() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        const pwaBanner = document.getElementById('pwa-install-banner');
+        if (pwaBanner) pwaBanner.style.display = 'none';
+      }
+      deferredPrompt = null;
+    });
+  } else {
+    // Show installation instruction modal for iOS or manual install
+    const modal = document.getElementById('install-modal');
+    if (modal) modal.style.display = 'flex';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.lucide) lucide.createIcons();
+
+  // Install Buttons
+  const headerInstallBtn = document.getElementById('header-install-btn');
+  const pwaInstallBtn = document.getElementById('pwa-install-btn');
+  const closeInstallModalBtn = document.getElementById('close-install-modal-btn');
+  const installModal = document.getElementById('install-modal');
+
+  if (headerInstallBtn) headerInstallBtn.addEventListener('click', handleAppInstall);
+  if (pwaInstallBtn) pwaInstallBtn.addEventListener('click', handleAppInstall);
+  if (closeInstallModalBtn && installModal) {
+    closeInstallModalBtn.addEventListener('click', () => {
+      installModal.style.display = 'none';
+    });
+  }
+
+  // Hero Giant SOS Button
+  const heroCalmBtn = document.getElementById('hero-calm-btn');
+  if (heroCalmBtn) {
+    heroCalmBtn.addEventListener('click', () => {
+      if (window.liteAudio.isPlaying) {
+        window.liteAudio.stop();
+        heroCalmBtn.querySelector('span').textContent = '⚡ BOTÓN DE CALMA';
+      } else {
+        window.liteAudio.play('pink');
+        heroCalmBtn.querySelector('span').textContent = '⏹️ DETENER CALMA';
+        startBreathingAnimation();
+      }
+    });
+  }
+
+  // Breathing Visualizer Controller
+  let breathingActive = false;
+  let breathingTimer = null;
+  let breathingTech = 'box';
+  const sphere = document.getElementById('breathing-sphere');
+  const instruction = document.getElementById('breathing-text-instruction');
+  const toggleBreathingBtn = document.getElementById('toggle-breathing-btn');
+
+  document.querySelectorAll('.b-tech-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.b-tech-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      breathingTech = chip.dataset.tech;
+      if (breathingActive) {
+        stopBreathingAnimation();
+        startBreathingAnimation();
+      }
+    });
+  });
+
+  if (toggleBreathingBtn) {
+    toggleBreathingBtn.addEventListener('click', () => {
+      if (breathingActive) {
+        stopBreathingAnimation();
+      } else {
+        startBreathingAnimation();
+      }
+    });
+  }
+
+  function startBreathingAnimation() {
+    breathingActive = true;
+    document.getElementById('breathing-btn-text').textContent = 'Pausar Respiración';
+    
+    let phases = [
+      { text: 'Inhala', duration: 4000, action: 'expand' },
+      { text: 'Sostén', duration: 4000, action: 'hold' },
+      { text: 'Exhala', duration: 4000, action: 'contract' },
+      { text: 'Sostén', duration: 4000, action: 'hold' }
+    ];
+
+    if (breathingTech === '478') {
+      phases = [
+        { text: 'Inhala (4s)', duration: 4000, action: 'expand' },
+        { text: 'Sostén (7s)', duration: 7000, action: 'hold' },
+        { text: 'Exhala (8s)', duration: 8000, action: 'contract' }
+      ];
+    } else if (breathingTech === 'coherence') {
+      phases = [
+        { text: 'Inhala (5s)', duration: 5000, action: 'expand' },
+        { text: 'Exhala (5s)', duration: 5000, action: 'contract' }
+      ];
+    }
+
+    let phaseIdx = 0;
+    const loop = () => {
+      if (!breathingActive) return;
+      const current = phases[phaseIdx];
+      instruction.textContent = current.text;
+
+      if (current.action === 'expand') {
+        sphere.classList.remove('contract');
+        sphere.classList.add('expand');
+      } else if (current.action === 'contract') {
+        sphere.classList.remove('expand');
+        sphere.classList.add('contract');
+      }
+
+      phaseIdx = (phaseIdx + 1) % phases.length;
+      breathingTimer = setTimeout(loop, current.duration);
+    };
+    loop();
+  }
+
+  function stopBreathingAnimation() {
+    breathingActive = false;
+    clearTimeout(breathingTimer);
+    instruction.textContent = 'En reposo';
+    sphere.classList.remove('expand', 'contract');
+    document.getElementById('breathing-btn-text').textContent = 'Comenzar Respiración';
+  }
+
+  // Grounding 5-4-3-2-1
+  let groundingStep = 1;
+  const groundingData = [
+    { count: 5, title: '5 Cosas que puedes VER', desc: 'Identifica 5 objetos físicos a tu alrededor.' },
+    { count: 4, title: '4 Cosas que puedes TOCAR', desc: 'Siente la textura de tu ropa, la mesa o tu piel.' },
+    { count: 3, title: '3 Sonidos que puedes ESCUCHAR', desc: 'Presta atención a sonidos lejanos o tu respiración.' },
+    { count: 2, title: '2 Olores que puedes PERCIBIR', desc: 'Huele el aire ambiental o tu ropa.' },
+    { count: 1, title: '1 Sabor o Gran Respiración', desc: 'Toma una inhalación profunda y nota la frescura.' }
+  ];
+
+  function renderGroundingStep(step) {
+    groundingStep = step;
+    const data = groundingData[step - 1];
+    document.getElementById('grounding-step-badge').textContent = `Paso ${step} de 5`;
+    document.getElementById('grounding-step-title').textContent = data.title;
+    document.getElementById('grounding-step-desc').textContent = data.desc;
+
+    const grid = document.getElementById('grounding-checks-grid');
+    grid.innerHTML = '';
+    for (let i = 1; i <= data.count; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'ground-check-btn';
+      btn.textContent = `${i} ✨`;
+      btn.addEventListener('click', () => {
+        btn.classList.toggle('checked');
+        if (navigator.vibrate) navigator.vibrate(30);
+      });
+      grid.appendChild(btn);
+    }
+  }
+  renderGroundingStep(1);
+
+  const nextGroundingBtn = document.getElementById('next-grounding-btn');
+  if (nextGroundingBtn) {
+    nextGroundingBtn.addEventListener('click', () => {
+      if (groundingStep < 5) {
+        renderGroundingStep(groundingStep + 1);
+      } else {
+        document.getElementById('grounding-step-badge').textContent = '¡Reconexión Lista! 🌿';
+        document.getElementById('grounding-step-title').textContent = '¡Estás presente y seguro!';
+        document.getElementById('grounding-step-desc').textContent = 'Tómate un momento para sentir cómo tu respiración se estabiliza.';
+        document.getElementById('grounding-checks-grid').innerHTML = '💚';
+      }
+    });
+  }
+
+  // Sound Library Controls
+  let selectedSound = 'pink';
+  const soundBtns = document.querySelectorAll('.sound-card-btn');
+  const toggleSoundBtn = document.getElementById('toggle-sound-btn');
+  const volumeSlider = document.getElementById('sound-volume-slider');
+
+  soundBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      soundBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedSound = btn.dataset.sound;
+
+      if (window.liteAudio.isPlaying) {
+        window.liteAudio.play(selectedSound);
+      }
+    });
+  });
+
+  if (toggleSoundBtn) {
+    toggleSoundBtn.addEventListener('click', () => {
+      if (window.liteAudio.isPlaying) {
+        window.liteAudio.stop();
+        document.getElementById('sound-btn-text').textContent = 'Reproducir Sonido Calmante';
+        toggleSoundBtn.querySelector('i').setAttribute('data-lucide', 'play');
+      } else {
+        window.liteAudio.play(selectedSound);
+        document.getElementById('sound-btn-text').textContent = 'Detener Sonido Calmante';
+        toggleSoundBtn.querySelector('i').setAttribute('data-lucide', 'square');
+      }
+      if (window.lucide) lucide.createIcons();
+    });
+  }
+
+  if (volumeSlider) {
+    volumeSlider.addEventListener('input', (e) => {
+      window.liteAudio.setVolume(parseFloat(e.target.value));
+    });
+  }
+});
+  </script>
+</body>
+</html>
